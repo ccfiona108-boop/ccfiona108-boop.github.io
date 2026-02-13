@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jolin's AI-Native Product Lab</title>
+    <title>CC 的 AI 管理室</title>
     <style>
+        /* 全局样式重置 */
         * {
             margin: 0;
             padding: 0;
@@ -12,6 +13,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
+        /* 基础样式 */
         body {
             background-color: #f5f8ff;
             color: #333;
@@ -170,12 +172,6 @@
             font-weight: 500;
         }
 
-        .tab.active {
-            color: #165dff;
-            border-bottom: 2px solid #165dff;
-            padding-bottom: 8px;
-        }
-
         .tab {
             color: #666;
             cursor: pointer;
@@ -184,6 +180,12 @@
 
         .tab:hover {
             color: #165dff;
+        }
+
+        .tab.active {
+            color: #165dff;
+            border-bottom: 2px solid #165dff;
+            padding-bottom: 8px;
         }
 
         /* 项目卡片网格 */
@@ -201,14 +203,31 @@
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #165dff, #4080ff);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
         }
 
         .project-cover {
@@ -264,16 +283,19 @@
             gap: 12px;
         }
 
+        /* 按钮样式 */
         .btn {
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 10px;
             font-size: 14px;
             font-weight: 500;
             text-decoration: none;
-            transition: background-color 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-outline {
@@ -285,6 +307,8 @@
         .btn-outline:hover {
             border-color: #165dff;
             color: #165dff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(22, 93, 255, 0.15);
         }
 
         .btn-primary {
@@ -295,13 +319,80 @@
 
         .btn-primary:hover {
             background-color: #0d47a1;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(22, 93, 255, 0.3);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::after {
+            width: 300px;
+            height: 300px;
         }
 
         /* 响应式适配 */
+        /* 平板设备 */
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        /* 移动设备 */
         @media (max-width: 768px) {
+            /* 顶部导航 */
+            .header {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            .logo-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .user-area {
+                font-size: 12px;
+                gap: 10px;
+            }
+
+            /* 主标题区 */
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .hero .desc {
+                font-size: 16px;
+            }
+
+            /* 流程步骤 */
             .process-steps {
                 flex-direction: column;
                 gap: 30px;
+                padding: 20px;
             }
 
             .step:not(:last-child)::after {
@@ -313,8 +404,76 @@
                 height: 40px;
             }
 
+            /* 项目分类标签 */
+            .project-tabs {
+                gap: 20px;
+                font-size: 16px;
+                flex-wrap: wrap;
+            }
+
+            /* 项目卡片网格 */
             .projects-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 15px;
+            }
+
+            .project-card {
+                max-width: 100%;
+            }
+
+            .project-cover {
+                height: 200px;
+            }
+
+            .project-info {
+                padding: 15px;
+            }
+
+            .project-title {
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+        }
+
+        /* 小屏移动设备 */
+        @media (max-width: 480px) {
+            /* 主标题区 */
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero .subtitle {
+                font-size: 16px;
+            }
+
+            .hero .desc {
+                font-size: 14px;
+            }
+
+            /* 项目分类标签 */
+            .project-tabs {
+                gap: 15px;
+                font-size: 14px;
+            }
+
+            /* 项目卡片 */
+            .project-cover {
+                height: 180px;
+            }
+
+            .project-tags {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .tag {
+                font-size: 11px;
+                padding: 3px 6px;
             }
         }
     </style>
@@ -324,7 +483,7 @@
     <div class="header">
         <div class="logo">
             <div class="logo-icon">⚡</div>
-            AI产品实验室
+            CC 的 AI 管理室
         </div>
         <div class="user-area">
             <span>管理后台</span>
@@ -332,70 +491,70 @@
             <div class="avatar">
                 <img src="https://via.placeholder.com/32" alt="头像">
             </div>
-            <span>佳玲</span>
+            <span>CC</span>
         </div>
     </div>
 
     <!-- 主标题区 -->
     <div class="hero">
-        <h1>Jolin's <span class="highlight">AI-Native Product Lab</span></h1>
-        <p class="subtitle">告别空想与低效沟通，以 AI 为笔，重构教育产品工作流。</p>
-        <p class="desc">在这里，见证我如何利用 Vibe Coding 将灵感光速落地，让产品在文档诞生前就已触手可及。</p>
+        <h1>CC 的 <span class="highlight">AI 管理室</span></h1>
+        <p class="subtitle">海量资料重新整理，用 AI 解构文件，重塑文件</p>
+        <p class="desc">在这里，见证我如何利用 AI 技术对海量资料进行智能整理，解构复杂文件，深入数据分析，释放数据价值。</p>
     </div>
 
     <!-- 流程步骤 -->
     <div class="process">
         <div class="process-steps">
             <div class="step">
-                <div class="step-icon">💡</div>
-                <div class="step-title">1. 灵感</div>
-                <div class="step-desc">(Inspiration)</div>
+                <div class="step-icon">📚</div>
+                <div class="step-title">1. 资料收集</div>
+                <div class="step-desc"></div>
             </div>
             <div class="step">
-                <div class="step-icon">💻</div>
-                <div class="step-title">2. Vibe Coding</div>
-                <div class="step-desc">(HTML生成)</div>
+                <div class="step-icon">🤖</div>
+                <div class="step-title">2. AI 解构</div>
+                <div class="step-desc"></div>
             </div>
             <div class="step">
-                <div class="step-icon">🎨</div>
-                <div class="step-title">3. MasterGo编辑</div>
-                <div class="step-desc">(HTML转SVG)</div>
+                <div class="step-icon">🔍</div>
+                <div class="step-title">3. 智能分类</div>
+                <div class="step-desc"></div>
             </div>
             <div class="step">
-                <div class="step-icon">⚙️</div>
-                <div class="step-title">4. 调整DEMO</div>
-                <div class="step-desc">(原型输入验证)</div>
+                <div class="step-icon">📊</div>
+                <div class="step-title">4. 数据分析</div>
+                <div class="step-desc"></div>
             </div>
             <div class="step">
-                <div class="step-icon">📝</div>
-                <div class="step-title">5. 反向生成PRD</div>
-                <div class="step-desc">(AI-Generated PRD)</div>
+                <div class="step-icon">💎</div>
+                <div class="step-title">5. 价值释放</div>
+                <div class="step-desc"></div>
             </div>
         </div>
     </div>
 
     <!-- 项目分类标签 -->
     <div class="project-tabs">
-        <div class="tab active">全部作品 (6)</div>
-        <div class="tab">创意实验</div>
-        <div class="tab">业务实战</div>
+        <div class="tab active">全部项目（6）</div>
+        <div class="tab">教研内容</div>
+        <div class="tab">老师好课</div>
         <div class="tab">效能工具</div>
     </div>
 
     <!-- 项目卡片网格 -->
     <div class="projects-grid">
         <!-- 项目1 -->
-        <div class="project-card">
+        <div class="project-card" data-category="教研内容">
             <div class="project-cover">
-                <img src="https://via.placeholder.com/600x300/165dff/ffffff?text=Project+1" alt="项目封面">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Colorful%20educational%20UI%20for%20young%20children%20showing%20%22幼小互动课件升级%22%20with%20interactive%20learning%20tools%2C%20knowledge%20games%2C%20and%20interactive%20question%20boards%20including%20multiple%20choice%2C%20true%2Ffalse%2C%20fill-in-the-blank%2C%20matching%2C%20and%20sorting%20games.%20Fun%20cartoon%20style%20suitable%20for%20lower%20primary%20school%20students%20with%20bright%20colors%20and%20friendly%20characters.&image_size=landscape_16_9" alt="幼小互动课件升级">
             </div>
             <div class="project-info">
-                <h3 class="project-title">项目模块一（占位）</h3>
+                <h3 class="project-title">幼小互动课件升级</h3>
                 <div class="project-tags">
                     <span class="tag">4h 构建</span>
                     <span class="tag">Kimi 2.5</span>
                 </div>
-                <p class="project-desc">这里是项目模块一的简介描述，后续可替换为你的项目目标与核心价值。</p>
+                <p class="project-desc">为小学低年级学员打造的互动课件，包含学科工具、知识点游戏和互动题板，支持选择题、判断题、填空题、连线题、分类题、匹配题等多种题型。</p>
                 <div class="project-actions">
                     <a href="#" class="btn btn-outline">AI PRD →</a>
                     <a href="#" class="btn btn-primary">体验demo →</a>
@@ -404,17 +563,17 @@
         </div>
 
         <!-- 项目2 -->
-        <div class="project-card">
+        <div class="project-card" data-category="老师好课">
             <div class="project-cover">
-                <img src="https://via.placeholder.com/600x300/ff6b6b/ffffff?text=Project+2" alt="项目封面">
+                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Educational%20platform%20UI%20showing%20complete%20teacher%20workflow%20for%20%22老师好课%22%2C%20including%20lesson%20planning%2C%20lesson%20polishing%2C%20and%20teaching%20process.%20Features%20cartoon%20style%20inspired%20by%20reference%20image%20with%20colorful%20interface%2C%20navigation%20tabs%2C%20and%20interactive%20elements.%20Shows%20teacher%20dashboard%20with%20lesson%20plans%2C%20demonstration%20videos%2C%20and%20teaching%20resources.%20Friendly%20design%20suitable%20for%20educators.&image_size=landscape_16_9" alt="老师好课">
             </div>
             <div class="project-info">
-                <h3 class="project-title">项目模块二（占位）</h3>
+                <h3 class="project-title">老师好课</h3>
                 <div class="project-tags">
                     <span class="tag">2.5h 构建</span>
                     <span class="tag">Gemini 3 Pro</span>
                 </div>
-                <p class="project-desc">这里是项目模块二的简介描述，后续可替换为你的项目目标与核心价值。</p>
+                <p class="project-desc">为教师打造的备课-磨课-授课一体化平台，涵盖示范课视频等全流程，帮助教师提升教学效率和质量。</p>
                 <div class="project-actions">
                     <a href="#" class="btn btn-outline">AI PRD →</a>
                     <a href="#" class="btn btn-primary">体验demo →</a>
@@ -423,7 +582,7 @@
         </div>
 
         <!-- 项目3 -->
-        <div class="project-card">
+        <div class="project-card" data-category="效能工具">
             <div class="project-cover">
                 <img src="https://via.placeholder.com/600x300/4ecdc4/ffffff?text=Project+3" alt="项目封面">
             </div>
@@ -442,7 +601,7 @@
         </div>
 
         <!-- 项目4 -->
-        <div class="project-card">
+        <div class="project-card" data-category="教研内容">
             <div class="project-cover">
                 <img src="https://via.placeholder.com/600x300/ffd166/ffffff?text=Project+4" alt="项目封面">
             </div>
@@ -461,7 +620,7 @@
         </div>
 
         <!-- 项目5 -->
-        <div class="project-card">
+        <div class="project-card" data-category="老师好课">
             <div class="project-cover">
                 <img src="https://via.placeholder.com/600x300/06d6a0/ffffff?text=Project+5" alt="项目封面">
             </div>
@@ -480,7 +639,7 @@
         </div>
 
         <!-- 项目6 -->
-        <div class="project-card">
+        <div class="project-card" data-category="效能工具">
             <div class="project-cover">
                 <img src="https://via.placeholder.com/600x300/7209b7/ffffff?text=Project+6" alt="项目封面">
             </div>
@@ -498,5 +657,40 @@
             </div>
         </div>
     </div>
+
+    <!-- JavaScript 筛选功能 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 移除所有标签的active类
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // 添加当前标签的active类
+                    this.classList.add('active');
+
+                    const category = this.textContent.trim();
+
+                    projectCards.forEach(card => {
+                        if (category === '全部项目（6）' || card.dataset.category === category) {
+                            card.style.display = 'flex';
+                            // 添加淡入动画
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.transition = 'all 0.3s ease';
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 50);
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
