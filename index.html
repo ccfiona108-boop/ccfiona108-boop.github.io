@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jolin's AI-Native Product Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f8ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 顶部导航 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #f5f8ff;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #165dff;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-color: #165dff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #e6e6e6;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 主标题区 */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 .highlight {
+            color: #165dff;
+        }
+
+        .hero .subtitle {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .hero .desc {
+            font-size: 18px;
+            color: #666;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* 流程步骤 */
+        .process {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            right: -20px;
+            width: 40px;
+            height: 2px;
+            background-color: #165dff;
+        }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #f0f5ff;
+            border-radius: 12px;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #165dff;
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* 项目分类标签 */
+        .project-tabs {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            color: #165dff;
+            border-bottom: 2px solid #165dff;
+            padding-bottom: 8px;
+        }
+
+        .tab {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .tab:hover {
+            color: #165dff;
+        }
+
+        /* 项目卡片网格 */
+        .projects-grid {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .project-cover {
+            width: 100%;
+            height: 280px;
+            background-color: #e6e6e6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .tag {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: #f0f5ff;
+            color: #165dff;
+        }
+
+        .project-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-outline {
+            border: 1px solid #d9d9d9;
+            color: #333;
+            background-color: white;
+        }
+
+        .btn-outline:hover {
+            border-color: #165dff;
+            color: #165dff;
+        }
+
+        .btn-primary {
+            background-color: #165dff;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0d47a1;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .process-steps {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .step:not(:last-child)::after {
+                top: auto;
+                bottom: -20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 2px;
+                height: 40px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">⚡</div>
+            AI产品实验室
+        </div>
+        <div class="user-area">
+            <span>管理后台</span>
+            <span>|</span>
+            <div class="avatar">
+                <img src="https://via.placeholder.com/32" alt="头像">
+            </div>
+            <span>佳玲</span>
+        </div>
+    </div>
+
+    <!-- 主标题区 -->
+    <div class="hero">
+        <h1>Jolin's <span class="highlight">AI-Native Product Lab</span></h1>
+        <p class="subtitle">告别空想与低效沟通，以 AI 为笔，重构教育产品工作流。</p>
+        <p class="desc">在这里，见证我如何利用 Vibe Coding 将灵感光速落地，让产品在文档诞生前就已触手可及。</p>
+    </div>
+
+    <!-- 流程步骤 -->
+    <div class="process">
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-icon">💡</div>
+                <div class="step-title">1. 灵感</div>
+                <div class="step-desc">(Inspiration)</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">💻</div>
+                <div class="step-title">2. Vibe Coding</div>
+                <div class="step-desc">(HTML生成)</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">🎨</div>
+                <div class="step-title">3. MasterGo编辑</div>
+                <div class="step-desc">(HTML转SVG)</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">⚙️</div>
+                <div class="step-title">4. 调整DEMO</div>
+                <div class="step-desc">(原型输入验证)</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">📝</div>
+                <div class="step-title">5. 反向生成PRD</div>
+                <div class="step-desc">(AI-Generated PRD)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 项目分类标签 -->
+    <div class="project-tabs">
+        <div class="tab active">全部作品 (6)</div>
+        <div class="tab">创意实验</div>
+        <div class="tab">业务实战</div>
+        <div class="tab">效能工具</div>
+    </div>
+
+    <!-- 项目卡片网格 -->
+    <div class="projects-grid">
+        <!-- 项目1 -->
+        <div class="project-card">
+            <div class="project-cover">
+                <img src="https://via.placeholder.com/600x300/165dff/ffffff?text=Project+1" alt="项目封面">
+            </div>
+            <div class="project-info">
+                <h3 class="project-title">项目模块一（占位）</h3>
+                <div class="project-tags">
+                    <span class="tag">4h 构建</span>
+                    <span class="tag">Kimi 2.5</span>
+                </div>
+                <p class="project-desc">这里是项目模块一的简介描述，后续可替换为你的项目目标与核心价值。</p>
+                <div class="project-actions">
+                    <a href="#" class="btn btn-outline">AI PRD →</a>
+                    <a href="#" class="btn btn-primary">体验demo →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 项目2 -->
+        <div class="project-card">
+            <div class="project-cover">
+                <img src="https://via.placeholder.com/600x300/ff6b6b/ffffff?text=Project+2" alt="项目封面">
+            </div>
+            <div class="project-info">
+                <h3 class="project-title">项目模块二（占位）</h3>
+                <div class="project-tags">
+                    <span class="tag">2.5h 构建</span>
+                    <span class="tag">Gemini 3 Pro</span>
+                </div>
+                <p class="project-desc">这里是项目模块二的简介描述，后续可替换为你的项目目标与核心价值。</p>
+                <div class="project-actions">
+                    <a href="#" class="btn btn-outline">AI PRD →</a>
+                    <a href="#" class="btn btn-primary">体验demo →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 项目3 -->
+        <div class="project-card">
+            <div class="project-cover">
+                <img src="https://via.placeholder.com/600x300/4ecdc4/ffffff?text=Project+3" alt="项目封面">
+            </div>
+            <div class="project-info">
+                <h3 class="project-title">项目模块三（占位）</h3>
+                <div class="project-tags">
+                    <span class="tag">3h 构建</span>
+                    <span class="tag">Claude 3.5</span>
+                </div>
+                <p class="project-desc">这里是项目模块三的简介描述，后续可替换为你的项目目标与核心价值。</p>
+                <div class="project-actions">
+                    <a href="#" class="btn btn-outline">AI PRD →</a>
+                    <a href="#" class="btn btn-primary">体验demo →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 项目4 -->
+        <div class="project-card">
+            <div class="project-cover">
+                <img src="https://via.placeholder.com/600x300/ffd166/ffffff?text=Project+4" alt="项目封面">
+            </div>
+            <div class="project-info">
+                <h3 class="project-title">项目模块四（占位）</h3>
+                <div class="project-tags">
+                    <span class="tag">5h 构建</span>
+                    <span class="tag">GPT-4o</span>
+                </div>
+                <p class="project-desc">这里是项目模块四的简介描述，后续可替换为你的项目目标与核心价值。</p>
+                <div class="project-actions">
+                    <a href="#" class="btn btn-outline">AI PRD →</a>
+                    <a href="#" class="btn btn-primary">体验demo →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 项目5 -->
+        <div class="project-card">
+            <div class="project-cover">
+                <img src="https://via.placeholder.com/600x300/06d6a0/ffffff?text=Project+5" alt="项目封面">
+            </div>
+            <div class="project-info">
+                <h3 class="project-title">项目模块五（占位）</h3>
+                <div class="project-tags">
+                    <span class="tag">1.5h 构建</span>
+                    <span class="tag">DeepSeek-R1</span>
+                </div>
+                <p class="project-desc">这里是项目模块五的简介描述，后续可替换为你的项目目标与核心价值。</p>
+                <div class="project-actions">
+                    <a href="#" class="btn btn-outline">AI PRD →</a>
+                    <a href="#" class="btn btn-primary">体验demo →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 项目6 -->
+        <div class="project-card">
+            <div class="project-cover">
+                <img src="https://via.placeholder.com/600x300/7209b7/ffffff?text=Project+6" alt="项目封面">
+            </div>
+            <div class="project-info">
+                <h3 class="project-title">项目模块六（占位）</h3>
+                <div class="project-tags">
+                    <span class="tag">2h 构建</span>
+                    <span class="tag">Qwen 2.5</span>
+                </div>
+                <p class="project-desc">这里是项目模块六的简介描述，后续可替换为你的项目目标与核心价值。</p>
+                <div class="project-actions">
+                    <a href="#" class="btn btn-outline">AI PRD →</a>
+                    <a href="#" class="btn btn-primary">体验demo →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
