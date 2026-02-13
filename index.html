@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人项目展示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* 时间线竖线 */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #ddd;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 5px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        /* 时间线圆点 */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #2c3e50;
+            border: 4px solid #fff;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        /* 左侧项目 */
+        .left {
+            left: 0;
+        }
+
+        /* 右侧项目 */
+        .right {
+            left: 50%;
+        }
+
+        /* 调整圆点位置 */
+        .left::after {
+            right: -17px;
+        }
+
+        .right::after {
+            left: -17px;
+        }
+
+        /* 项目卡片 */
+        .project-card {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-date {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .project-desc {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-link:hover {
+            background-color: #2980b9;
+        }
+
+        .ppt-link {
+            background-color: #e67e22;
+        }
+
+        .ppt-link:hover {
+            background-color: #d35400;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            color: #7f8c8d;
+        }
+
+        /* 响应式适配 */
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 15px;
+            }
+
+            .left::after, .right::after {
+                left: 15px;
+            }
+
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>我的项目作品集</h1>
+        <p class="subtitle">按时间线展示的个人项目与成果</p>
+    </header>
+
+    <div class="timeline">
+        <!-- 项目1：最新项目 -->
+        <div class="timeline-item left">
+            <div class="project-card">
+                <div class="project-date">2026 - 02</div>
+                <h2 class="project-title">智能数据分析平台</h2>
+                <p class="project-desc">基于Python和Vue开发的企业级数据分析平台，支持多数据源接入、可视化报表生成、自动分析报告输出等功能。</p>
+                <div class="project-links">
+                    <a href="https://your-project-url.com" target="_blank" class="project-link">项目官网</a>
+                    <a href="https://your-ppt-url.com/analysis-ppt.pdf" target="_blank" class="project-link ppt-link">查看PPT</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 项目2 -->
+        <div class="timeline-item right">
+            <div class="project-card">
+                <div class="project-date">2025 - 11</div>
+                <h2 class="project-title">移动端电商小程序</h2>
+                <p class="project-desc">基于微信小程序开发的电商平台，包含商品展示、购物车、支付、订单管理等核心功能，日均访问量1000+。</p>
+                <div class="project-links">
+                    <a href="https://your-mini-program-url.com" target="_blank" class="project-link">小程序体验</a>
+                    <a href="https://your-ppt-url.com/mini-app-ppt.pdf" target="_blank" class="project-link ppt-link">查看PPT</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 项目3 -->
+        <div class="timeline-item left">
+            <div class="project-card">
+                <div class="project-date">2025 - 07</div>
+                <h2 class="project-title">个人博客系统</h2>
+                <p class="project-desc">基于Spring Boot + React开发的个人博客系统，支持Markdown编辑、分类标签、评论互动等功能。</p>
+                <div class="project-links">
+                    <a href="https://your-blog-url.com" target="_blank" class="project-link">访问博客</a>
+                    <a href="https://your-ppt-url.com/blog-ppt.pdf" target="_blank" class="project-link ppt-link">查看PPT</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 可继续添加更多项目 -->
+    </div>
+
+    <footer>
+        <p>© 2026 我的个人项目展示 | 所有项目均为个人/团队开发成果</p>
+    </footer>
+
+    <script>
+        // 可选：添加平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
