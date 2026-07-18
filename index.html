@@ -1,696 +1,319 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CC 的 AI 管理室</title>
-    <style>
-        /* 全局样式重置 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
-
-        /* 基础样式 */
-        body {
-            background-color: #f5f8ff;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        /* 顶部导航 */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background-color: #f5f8ff;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 20px;
-            font-weight: 600;
-            color: #165dff;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background-color: #165dff;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .user-area {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #e6e6e6;
-            overflow: hidden;
-        }
-
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* 主标题区 */
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 .highlight {
-            color: #165dff;
-        }
-
-        .hero .subtitle {
-            font-size: 20px;
-            color: #333;
-            margin-bottom: 12px;
-        }
-
-        .hero .desc {
-            font-size: 18px;
-            color: #666;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* 流程步骤 */
-        .process {
-            max-width: 1000px;
-            margin: 0 auto 60px;
-            padding: 0 20px;
-        }
-
-        .process-steps {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
-
-        .step {
-            text-align: center;
-            flex: 1;
-            position: relative;
-        }
-
-        .step:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            top: 30px;
-            right: -20px;
-            width: 40px;
-            height: 2px;
-            background-color: #165dff;
-        }
-
-        .step-icon {
-            width: 60px;
-            height: 60px;
-            background-color: #f0f5ff;
-            border-radius: 12px;
-            margin: 0 auto 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #165dff;
-        }
-
-        .step-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .step-desc {
-            font-size: 13px;
-            color: #666;
-        }
-
-        /* 项目分类标签 */
-        .project-tabs {
-            max-width: 1200px;
-            margin: 0 auto 40px;
-            padding: 0 20px;
-            display: flex;
-            gap: 40px;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        .tab {
-            color: #666;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .tab:hover {
-            color: #165dff;
-        }
-
-        .tab.active {
-            color: #165dff;
-            border-bottom: 2px solid #165dff;
-            padding-bottom: 8px;
-        }
-
-        /* 项目卡片网格 */
-        .projects-grid {
-            max-width: 1200px;
-            margin: 0 auto 80px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background-color: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #165dff, #4080ff);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .project-cover {
-            width: 100%;
-            height: 280px;
-            background-color: #e6e6e6;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .project-info {
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .project-tags {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .tag {
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            background-color: #f0f5ff;
-            color: #165dff;
-        }
-
-        .project-desc {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
-            flex: 1;
-        }
-
-        .project-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        /* 按钮样式 */
-        .btn {
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-outline {
-            border: 1px solid #d9d9d9;
-            color: #333;
-            background-color: white;
-        }
-
-        .btn-outline:hover {
-            border-color: #165dff;
-            color: #165dff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(22, 93, 255, 0.15);
-        }
-
-        .btn-primary {
-            background-color: #165dff;
-            color: white;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #0d47a1;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(22, 93, 255, 0.3);
-        }
-
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn-primary:hover::after {
-            width: 300px;
-            height: 300px;
-        }
-
-        /* 响应式适配 */
-        /* 平板设备 */
-        @media (max-width: 1024px) {
-            .projects-grid {
-                grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-                gap: 20px;
-            }
-        }
-
-        /* 移动设备 */
-        @media (max-width: 768px) {
-            /* 顶部导航 */
-            .header {
-                padding: 15px 20px;
-            }
-
-            .logo {
-                font-size: 16px;
-            }
-
-            .logo-icon {
-                width: 28px;
-                height: 28px;
-            }
-
-            .user-area {
-                font-size: 12px;
-                gap: 10px;
-            }
-
-            /* 主标题区 */
-            .hero {
-                padding: 40px 20px;
-            }
-
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .hero .subtitle {
-                font-size: 18px;
-            }
-
-            .hero .desc {
-                font-size: 16px;
-            }
-
-            /* 流程步骤 */
-            .process-steps {
-                flex-direction: column;
-                gap: 30px;
-                padding: 20px;
-            }
-
-            .step:not(:last-child)::after {
-                top: auto;
-                bottom: -20px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 2px;
-                height: 40px;
-            }
-
-            /* 项目分类标签 */
-            .project-tabs {
-                gap: 20px;
-                font-size: 16px;
-                flex-wrap: wrap;
-            }
-
-            /* 项目卡片网格 */
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 0 15px;
-            }
-
-            .project-card {
-                max-width: 100%;
-            }
-
-            .project-cover {
-                height: 200px;
-            }
-
-            .project-info {
-                padding: 15px;
-            }
-
-            .project-title {
-                font-size: 16px;
-            }
-
-            .btn {
-                padding: 8px 16px;
-                font-size: 13px;
-            }
-        }
-
-        /* 小屏移动设备 */
-        @media (max-width: 480px) {
-            /* 主标题区 */
-            .hero h1 {
-                font-size: 28px;
-            }
-
-            .hero .subtitle {
-                font-size: 16px;
-            }
-
-            .hero .desc {
-                font-size: 14px;
-            }
-
-            /* 项目分类标签 */
-            .project-tabs {
-                gap: 15px;
-                font-size: 14px;
-            }
-
-            /* 项目卡片 */
-            .project-cover {
-                height: 180px;
-            }
-
-            .project-tags {
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-
-            .tag {
-                font-size: 11px;
-                padding: 3px 6px;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="CC 的 AI 管理室：分享 AI 团队、小说工厂、视频制作与数字产品的真实业务实践。">
+  <meta name="theme-color" content="#f6f0e6">
+  <title>CC 的 AI 管理室｜把 AI 变成能长期运转的业务流程</title>
+  <style>
+    :root {
+      --paper:#f5efe5;
+      --paper-2:#ebe2d3;
+      --surface:#fffdf8;
+      --ink:#24231f;
+      --muted:#6f6a60;
+      --line:#dcd1c0;
+      --red:#df5b4f;
+      --red-deep:#a93d35;
+      --green:#537a67;
+      --yellow:#d8a43e;
+      --shadow:0 20px 60px rgba(71,53,34,.10);
+      --radius:24px;
+    }
+
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 8% 6%, rgba(223,91,79,.11), transparent 26rem),
+        radial-gradient(circle at 90% 30%, rgba(83,122,103,.10), transparent 29rem),
+        var(--paper);
+      font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+      line-height:1.7;
+    }
+
+    a { color:inherit; }
+    button { font:inherit; }
+    .wrap { width:min(1160px, calc(100% - 40px)); margin:0 auto; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+    header {
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(16px);
+      background:rgba(245,239,229,.84);
+      border-bottom:1px solid rgba(220,209,192,.72);
+    }
+    .nav { min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { display:flex; align-items:center; gap:11px; text-decoration:none; font-weight:760; letter-spacing:-.02em; }
+    .brand-mark { width:38px; height:38px; display:grid; place-items:center; border-radius:13px; color:white; background:var(--red); box-shadow:0 8px 22px rgba(223,91,79,.25); }
+    .nav-links { display:flex; align-items:center; gap:26px; font-size:14px; }
+    .nav-links a { color:var(--muted); text-decoration:none; }
+    .nav-links a:hover { color:var(--ink); }
+    .owner-link { padding:8px 13px; border:1px solid var(--line); border-radius:99px; background:rgba(255,253,248,.7); }
+
+    .hero { padding:104px 0 76px; }
+    .hero-grid { display:grid; grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr); gap:68px; align-items:center; }
+    .eyebrow { color:var(--red-deep); font-size:12px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+    h1,h2,h3,p { margin-top:0; }
+    h1,h2 { font-family:"Songti SC","STSong",serif; }
+    h1 { margin:16px 0 24px; font-size:clamp(46px,7vw,82px); line-height:1.04; letter-spacing:-.055em; font-weight:780; }
+    .hero-copy { max-width:690px; color:var(--muted); font-size:18px; }
+    .hero-copy strong { color:var(--ink); }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
+    .btn { min-height:46px; display:inline-flex; align-items:center; justify-content:center; padding:10px 18px; border-radius:14px; text-decoration:none; font-weight:720; font-size:14px; transition:.2s ease; }
+    .btn-primary { color:white; background:var(--ink); box-shadow:0 10px 24px rgba(36,35,31,.18); }
+    .btn-secondary { background:rgba(255,253,248,.7); border:1px solid var(--line); }
+    .btn:hover { transform:translateY(-2px); }
+
+    .hero-board { min-height:470px; position:relative; border:1px solid rgba(220,209,192,.9); border-radius:34px; padding:28px; background:rgba(255,253,248,.78); box-shadow:var(--shadow); overflow:hidden; }
+    .hero-board:before { content:""; position:absolute; width:210px; height:210px; right:-70px; top:-80px; border-radius:50%; background:rgba(223,91,79,.13); }
+    .board-label { position:relative; display:flex; align-items:center; justify-content:space-between; font-size:12px; color:var(--muted); }
+    .live { display:inline-flex; align-items:center; gap:7px; }
+    .live:before { content:""; width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 5px rgba(83,122,103,.12); }
+    .route { position:relative; display:grid; gap:12px; margin-top:34px; }
+    .route-card { display:grid; grid-template-columns:44px 1fr; gap:14px; align-items:center; padding:16px; border-radius:18px; background:var(--surface); border:1px solid var(--line); }
+    .route-card:nth-child(2) { margin-left:34px; }
+    .route-card:nth-child(3) { margin-left:68px; }
+    .route-icon { width:44px; height:44px; display:grid; place-items:center; border-radius:14px; background:var(--paper); font-size:20px; }
+    .route-card b { display:block; font-size:14px; }
+    .route-card small { color:var(--muted); }
+    .human-gate { margin:20px 0 0 68px; padding:14px 16px; color:#fff; background:var(--red); border-radius:16px; font-size:13px; box-shadow:0 12px 28px rgba(223,91,79,.22); }
+
+    .proof { padding:0 0 78px; }
+    .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .proof-item { padding:24px 26px; }
+    .proof-item + .proof-item { border-left:1px solid var(--line); }
+    .proof-item b { display:block; font-size:24px; letter-spacing:-.04em; }
+    .proof-item span { color:var(--muted); font-size:13px; }
+
+    section { padding:86px 0; }
+    .section-head { display:grid; grid-template-columns:.75fr 1.25fr; gap:40px; align-items:end; margin-bottom:34px; }
+    h2 { margin:10px 0 0; font-size:clamp(34px,5vw,54px); line-height:1.12; letter-spacing:-.045em; }
+    .section-intro { color:var(--muted); margin:0; max-width:640px; }
+
+    .tracks { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .track { min-height:420px; display:flex; flex-direction:column; padding:26px; border:1px solid var(--line); border-radius:var(--radius); background:rgba(255,253,248,.78); box-shadow:0 12px 36px rgba(72,54,34,.06); }
+    .track-no { display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:12px; }
+    .track-symbol { width:42px; height:42px; display:grid; place-items:center; border-radius:14px; background:var(--paper-2); font-size:19px; }
+    .track h3 { margin:38px 0 12px; font-size:24px; line-height:1.3; letter-spacing:-.03em; }
+    .track p { color:var(--muted); font-size:14px; }
+    .track ul { margin:auto 0 0; padding:0; list-style:none; display:grid; gap:9px; }
+    .track li { padding-top:9px; border-top:1px solid var(--line); font-size:13px; }
+
+    .method { background:#272621; color:#f9f5ed; }
+    .method .eyebrow { color:#f3a59d; }
+    .method .section-intro { color:#bdb5a9; }
+    .method-flow { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:42px; }
+    .method-step { min-height:180px; padding:18px; border:1px solid #49463f; border-radius:18px; background:#302e29; }
+    .method-step span { color:#f3a59d; font-size:12px; font-weight:800; }
+    .method-step b { display:block; margin:28px 0 8px; font-size:17px; }
+    .method-step p { color:#aaa398; font-size:12px; margin:0; }
+
+    .products { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .product { padding:26px; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); }
+    .product-top { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .pill { display:inline-flex; padding:5px 9px; border-radius:99px; background:#f5e3df; color:var(--red-deep); font-size:11px; font-weight:750; }
+    .price { font-size:26px; font-weight:850; letter-spacing:-.04em; }
+    .product h3 { margin:28px 0 10px; font-size:21px; line-height:1.35; }
+    .product p { color:var(--muted); font-size:13px; min-height:66px; }
+    .product small { display:block; padding-top:15px; border-top:1px solid var(--line); color:var(--muted); }
+
+    .note { display:grid; grid-template-columns:.72fr 1.28fr; gap:54px; align-items:start; }
+    .portrait { min-height:360px; position:relative; display:grid; place-items:center; border-radius:32px; background:var(--red); color:white; overflow:hidden; }
+    .portrait:before,.portrait:after { content:""; position:absolute; border-radius:50%; border:1px solid rgba(255,255,255,.35); }
+    .portrait:before { width:280px; height:280px; }
+    .portrait:after { width:190px; height:190px; }
+    .portrait strong { position:relative; z-index:1; font-family:"Songti SC","STSong",serif; font-size:82px; }
+    .note-copy h2 { margin-bottom:26px; }
+    .note-copy p { color:var(--muted); }
+    .quote { margin:30px 0 0; padding:22px 0 0; border-top:1px solid var(--line); color:var(--ink)!important; font-size:19px; }
+
+    footer { padding:34px 0 46px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+    .footer-row { display:flex; justify-content:space-between; gap:24px; align-items:center; }
+    .footer-row a { text-decoration:none; }
+
+    @media (max-width:900px) {
+      .nav-links a:not(.owner-link) { display:none; }
+      .hero { padding-top:70px; }
+      .hero-grid,.section-head,.note { grid-template-columns:1fr; }
+      .hero-board { min-height:auto; }
+      .tracks,.products { grid-template-columns:1fr; }
+      .track { min-height:0; }
+      .method-flow { grid-template-columns:1fr 1fr; }
+      .method-step:last-child { grid-column:1/-1; }
+      .proof-grid { grid-template-columns:1fr; }
+      .proof-item + .proof-item { border-left:0; border-top:1px solid var(--line); }
+    }
+
+    @media (max-width:560px) {
+      .wrap { width:min(100% - 28px, 1160px); }
+      .nav { min-height:64px; }
+      .brand-mark { width:34px; height:34px; }
+      .owner-link { font-size:12px; padding:7px 10px; }
+      h1 { font-size:45px; }
+      .hero-copy { font-size:16px; }
+      .hero-board { padding:19px; border-radius:24px; }
+      .route-card:nth-child(2),.route-card:nth-child(3),.human-gate { margin-left:0; }
+      section { padding:66px 0; }
+      .method-flow { grid-template-columns:1fr; }
+      .method-step:last-child { grid-column:auto; }
+      .footer-row { display:block; }
+      .footer-row span { display:block; margin-top:8px; }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      *,*:before,*:after { transition:none!important; }
+    }
+  </style>
 </head>
 <body>
-    <!-- 顶部导航 -->
-    <div class="header">
-        <div class="logo">
-            <div class="logo-icon">⚡</div>
-            CC 的 AI 管理室
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="返回首页">
+        <span class="brand-mark">CC</span>
+        <span>CC 的 AI 管理室</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#practice">实践方向</a>
+        <a href="#method">工作方法</a>
+        <a href="#products">验证产品</a>
+        <a href="#about">关于我</a>
+        <span class="owner-link" aria-label="私有工作台尚未上线">私有工作台（未上线）</span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Business × Process × AI Practice</div>
+          <h1>把 AI 变成<br>能长期运转的<br>业务流程</h1>
+          <p class="hero-copy">我是CC，一名擅长使用AI工具的运营人员。这里不分享“一条指令解决所有问题”，而是记录如何把<strong>目标、流程、执行、检查和复盘</strong>真正连起来。</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#practice">看看我在做什么</a>
+            <a class="btn btn-secondary" href="#products">查看验证中的资料</a>
+          </div>
         </div>
-        <div class="user-area">
-            <span>管理后台</span>
-            <span>|</span>
-            <div class="avatar">
-                <img src="https://via.placeholder.com/32" alt="头像">
-            </div>
-            <span>CC</span>
-        </div>
+        <aside class="hero-board" aria-label="AI工作方式示意">
+          <div class="board-label"><span>一个可复查的AI任务</span><span class="live">人工掌舵</span></div>
+          <div class="route">
+            <div class="route-card"><span class="route-icon">◎</span><div><b>先定义要交什么</b><small>目标、资料与停止条件</small></div></div>
+            <div class="route-card"><span class="route-icon">↗</span><div><b>再让AI连续推进</b><small>不为了角色数量而拆分</small></div></div>
+            <div class="route-card"><span class="route-icon">✓</span><div><b>留下检查与返工记录</b><small>问题进入复盘，再决定是否改流程</small></div></div>
+          </div>
+          <div class="human-gate">最终确认、对外影响和规则变更，始终由人掌握。</div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="proof">
+      <div class="wrap proof-grid">
+        <div class="proof-item"><b>3 条实践方向</b><span>AI团队、小说质量闭环、AI视频</span></div>
+        <div class="proof-item"><b>3 个验证商品</b><span>仍在测试，不包装成成熟方法</span></div>
+        <div class="proof-item"><b>持续公开复盘</b><span>分享判断、流程和真实边界</span></div>
+      </div>
     </div>
 
-    <!-- 主标题区 -->
-    <div class="hero">
-        <h1>CC 的 <span class="highlight">AI 管理室</span></h1>
-        <p class="subtitle">海量资料重新整理，用 AI 解构文件，重塑文件</p>
-        <p class="desc">在这里，见证我如何利用 AI 技术对海量资料进行智能整理，解构复杂文件，深入数据分析，释放数据价值。</p>
+    <section id="practice">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Current Practice</div><h2>我正在验证的<br>三种AI工作方式</h2></div>
+          <p class="section-intro">它们看起来是不同项目，背后复用的是同一套能力：先把业务目标说清楚，再安排AI工作，设置检查点，并让经验能够进入下一轮。</p>
+        </div>
+        <div class="tracks">
+          <article class="track">
+            <div class="track-no"><span>01 / AI TEAM</span><span class="track-symbol">🦞</span></div>
+            <h3>AI团队与“养虾”实践</h3>
+            <p>同一件事优先让同一个Agent在连续上下文里推进；长期独立、偶尔交叉的工作，再拆成多只协作虾。</p>
+            <ul><li>主Agent如何安排工作</li><li>从一只到多只的职责与工作区</li><li>记录、周报与人工改流程</li></ul>
+          </article>
+          <article class="track">
+            <div class="track-no"><span>02 / NOVEL</span><span class="track-symbol">✎</span></div>
+            <h3>AI小说工厂与质量闭环</h3>
+            <p>重点不在“一条提示词写完整本”，而在长篇故事如何持续推进、保持一致，并在关键节点主动暂停检查。</p>
+            <ul><li>创作与检查职责分开</li><li>按批次停下复查</li><li>质量闸门与人工放行</li></ul>
+          </article>
+          <article class="track">
+            <div class="track-no"><span>03 / VIDEO</span><span class="track-symbol">▶</span></div>
+            <h3>AI视频与产品内容制作</h3>
+            <p>不展示敏感操作界面，也不把动画当成功能证据。先确认真实能力，再把复杂流程讲成普通人能看懂的内容。</p>
+            <ul><li>真实证据与动画表达分开</li><li>从长录屏中只保留必要步骤</li><li>一条视频只讲一个判断</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="method" id="method">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">How I Work</div><h2>技术架构不熟，<br>业务流程必须清楚</h2></div>
+          <p class="section-intro">我的强项是业务架构、流程架构和工具实践。AI负责执行和整理，人负责目标、边界、判断与最终放行。</p>
+        </div>
+        <div class="method-flow">
+          <article class="method-step"><span>STEP 01</span><b>目标</b><p>这次到底要解决什么问题，最后交付什么。</p></article>
+          <article class="method-step"><span>STEP 02</span><b>资料</b><p>允许参考什么，哪些事实需要单独核对。</p></article>
+          <article class="method-step"><span>STEP 03</span><b>执行</b><p>让合适的Agent连续推进，必要时才拆分职责。</p></article>
+          <article class="method-step"><span>STEP 04</span><b>检查</b><p>AI先自查，人再确认关键事实和外部影响。</p></article>
+          <article class="method-step"><span>STEP 05</span><b>复盘</b><p>记录错误和遗漏，再决定是否调整下一轮流程。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Products In Validation</div><h2>正在验证的<br>数字资料</h2></div>
+          <p class="section-intro">这些资料均为固定验证版，不宣称适配所有工具，也不保证效果。它们用于测试普通用户是否愿意为更清楚的AI工作方法付费。</p>
+        </div>
+        <div class="products">
+          <article class="product">
+            <div class="product-top"><span class="pill">入门小包</span><span class="price">¥9.9</span></div>
+            <h3>AI开工就能用指令包 v0.1</h3>
+            <p>9条白话起步模板，面向已经会使用AI、但经常不知道第一句话怎么说的普通用户。</p>
+            <small>交付：1份Markdown数字学习资料</small>
+          </article>
+          <article class="product">
+            <div class="product-top"><span class="pill">OpenClaw改造</span><span class="price">¥9.9</span></div>
+            <h3>从一只主虾到三只协作虾 v0.1</h3>
+            <p>仅面向已有一只OpenClaw主Agent、并已自行决定开始1→2改造的用户。</p>
+            <small>不包含安装、注册和工具故障排查</small>
+          </article>
+          <article class="product">
+            <div class="product-top"><span class="pill">专业验证包</span><span class="price">¥39.9</span></div>
+            <h3>AI团队带队起步包 v0.1</h3>
+            <p>提供一条7天起步路径，用于尝试搭建第一个可复查的AI任务闭环，包含PDF指南和13个独立Markdown指令文件。</p>
+            <small>当前状态：假设 / 待验证</small>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap note">
+        <div class="portrait" aria-hidden="true"><strong>CC</strong></div>
+        <div class="note-copy">
+          <div class="eyebrow">About CC</div>
+          <h2>我不把自己包装成<br>技术架构师</h2>
+          <p>我的工作背景更接近运营和产品实践：理解业务问题、拆解流程、安排工具、检查结果，再把有效做法沉淀下来。</p>
+          <p>OpenClaw、Codex、小说工厂和视频工程只是不同的执行环境。真正持续复用的，是如何把一个模糊想法变成能推进、能检查、能交付的项目。</p>
+          <p class="quote">这里分享的是正在发生的实践，不是事后包装出来的万能答案。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <strong>CC 的 AI 管理室</strong>
+      <span>核心方法来自作者实践，网站内容由AI辅助组织并经人工复核。</span>
     </div>
-
-    <!-- 流程步骤 -->
-    <div class="process">
-        <div class="process-steps">
-            <div class="step">
-                <div class="step-icon">📚</div>
-                <div class="step-title">1. 资料收集</div>
-                <div class="step-desc"></div>
-            </div>
-            <div class="step">
-                <div class="step-icon">🤖</div>
-                <div class="step-title">2. AI 解构</div>
-                <div class="step-desc"></div>
-            </div>
-            <div class="step">
-                <div class="step-icon">🔍</div>
-                <div class="step-title">3. 智能分类</div>
-                <div class="step-desc"></div>
-            </div>
-            <div class="step">
-                <div class="step-icon">📊</div>
-                <div class="step-title">4. 数据分析</div>
-                <div class="step-desc"></div>
-            </div>
-            <div class="step">
-                <div class="step-icon">💎</div>
-                <div class="step-title">5. 价值释放</div>
-                <div class="step-desc"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 项目分类标签 -->
-    <div class="project-tabs">
-        <div class="tab active">全部项目（6）</div>
-        <div class="tab">教研内容</div>
-        <div class="tab">老师好课</div>
-        <div class="tab">效能工具</div>
-    </div>
-
-    <!-- 项目卡片网格 -->
-    <div class="projects-grid">
-        <!-- 项目1 -->
-        <div class="project-card" data-category="教研内容">
-            <div class="project-cover">
-                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Colorful%20educational%20UI%20for%20young%20children%20showing%20%22幼小互动课件升级%22%20with%20interactive%20learning%20tools%2C%20knowledge%20games%2C%20and%20interactive%20question%20boards%20including%20multiple%20choice%2C%20true%2Ffalse%2C%20fill-in-the-blank%2C%20matching%2C%20and%20sorting%20games.%20Fun%20cartoon%20style%20suitable%20for%20lower%20primary%20school%20students%20with%20bright%20colors%20and%20friendly%20characters.&image_size=landscape_16_9" alt="幼小互动课件升级">
-            </div>
-            <div class="project-info">
-                <h3 class="project-title">幼小互动课件升级</h3>
-                <div class="project-tags">
-                    <span class="tag">4h 构建</span>
-                    <span class="tag">Kimi 2.5</span>
-                </div>
-                <p class="project-desc">为小学低年级学员打造的互动课件，包含学科工具、知识点游戏和互动题板，支持选择题、判断题、填空题、连线题、分类题、匹配题等多种题型。</p>
-                <div class="project-actions">
-                    <a href="#" class="btn btn-outline">AI PRD →</a>
-                    <a href="#" class="btn btn-primary">体验demo →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 项目2 -->
-        <div class="project-card" data-category="老师好课">
-            <div class="project-cover">
-                <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Educational%20platform%20UI%20showing%20complete%20teacher%20workflow%20for%20%22老师好课%22%2C%20including%20lesson%20planning%2C%20lesson%20polishing%2C%20and%20teaching%20process.%20Features%20cartoon%20style%20inspired%20by%20reference%20image%20with%20colorful%20interface%2C%20navigation%20tabs%2C%20and%20interactive%20elements.%20Shows%20teacher%20dashboard%20with%20lesson%20plans%2C%20demonstration%20videos%2C%20and%20teaching%20resources.%20Friendly%20design%20suitable%20for%20educators.&image_size=landscape_16_9" alt="老师好课">
-            </div>
-            <div class="project-info">
-                <h3 class="project-title">老师好课</h3>
-                <div class="project-tags">
-                    <span class="tag">2.5h 构建</span>
-                    <span class="tag">Gemini 3 Pro</span>
-                </div>
-                <p class="project-desc">为教师打造的备课-磨课-授课一体化平台，涵盖示范课视频等全流程，帮助教师提升教学效率和质量。</p>
-                <div class="project-actions">
-                    <a href="#" class="btn btn-outline">AI PRD →</a>
-                    <a href="#" class="btn btn-primary">体验demo →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 项目3 -->
-        <div class="project-card" data-category="效能工具">
-            <div class="project-cover">
-                <img src="https://via.placeholder.com/600x300/4ecdc4/ffffff?text=Project+3" alt="项目封面">
-            </div>
-            <div class="project-info">
-                <h3 class="project-title">项目模块三（占位）</h3>
-                <div class="project-tags">
-                    <span class="tag">3h 构建</span>
-                    <span class="tag">Claude 3.5</span>
-                </div>
-                <p class="project-desc">这里是项目模块三的简介描述，后续可替换为你的项目目标与核心价值。</p>
-                <div class="project-actions">
-                    <a href="#" class="btn btn-outline">AI PRD →</a>
-                    <a href="#" class="btn btn-primary">体验demo →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 项目4 -->
-        <div class="project-card" data-category="教研内容">
-            <div class="project-cover">
-                <img src="https://via.placeholder.com/600x300/ffd166/ffffff?text=Project+4" alt="项目封面">
-            </div>
-            <div class="project-info">
-                <h3 class="project-title">项目模块四（占位）</h3>
-                <div class="project-tags">
-                    <span class="tag">5h 构建</span>
-                    <span class="tag">GPT-4o</span>
-                </div>
-                <p class="project-desc">这里是项目模块四的简介描述，后续可替换为你的项目目标与核心价值。</p>
-                <div class="project-actions">
-                    <a href="#" class="btn btn-outline">AI PRD →</a>
-                    <a href="#" class="btn btn-primary">体验demo →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 项目5 -->
-        <div class="project-card" data-category="老师好课">
-            <div class="project-cover">
-                <img src="https://via.placeholder.com/600x300/06d6a0/ffffff?text=Project+5" alt="项目封面">
-            </div>
-            <div class="project-info">
-                <h3 class="project-title">项目模块五（占位）</h3>
-                <div class="project-tags">
-                    <span class="tag">1.5h 构建</span>
-                    <span class="tag">DeepSeek-R1</span>
-                </div>
-                <p class="project-desc">这里是项目模块五的简介描述，后续可替换为你的项目目标与核心价值。</p>
-                <div class="project-actions">
-                    <a href="#" class="btn btn-outline">AI PRD →</a>
-                    <a href="#" class="btn btn-primary">体验demo →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 项目6 -->
-        <div class="project-card" data-category="效能工具">
-            <div class="project-cover">
-                <img src="https://via.placeholder.com/600x300/7209b7/ffffff?text=Project+6" alt="项目封面">
-            </div>
-            <div class="project-info">
-                <h3 class="project-title">项目模块六（占位）</h3>
-                <div class="project-tags">
-                    <span class="tag">2h 构建</span>
-                    <span class="tag">Qwen 2.5</span>
-                </div>
-                <p class="project-desc">这里是项目模块六的简介描述，后续可替换为你的项目目标与核心价值。</p>
-                <div class="project-actions">
-                    <a href="#" class="btn btn-outline">AI PRD →</a>
-                    <a href="#" class="btn btn-primary">体验demo →</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript 筛选功能 -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.tab');
-            const projectCards = document.querySelectorAll('.project-card');
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    // 移除所有标签的active类
-                    tabs.forEach(t => t.classList.remove('active'));
-                    // 添加当前标签的active类
-                    this.classList.add('active');
-
-                    const category = this.textContent.trim();
-
-                    projectCards.forEach(card => {
-                        if (category === '全部项目（6）' || card.dataset.category === category) {
-                            card.style.display = 'flex';
-                            // 添加淡入动画
-                            card.style.opacity = '0';
-                            card.style.transform = 'translateY(20px)';
-                            setTimeout(() => {
-                                card.style.transition = 'all 0.3s ease';
-                                card.style.opacity = '1';
-                                card.style.transform = 'translateY(0)';
-                            }, 50);
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            });
-        });
-    </script>
+  </footer>
 </body>
 </html>
