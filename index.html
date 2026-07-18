@@ -22,6 +22,7 @@
     .nav-links a { color:var(--muted); text-decoration:none; }
     .nav-links a:hover { color:var(--ink); }
     .owner-link { padding:8px 13px; border:1px solid var(--line); border-radius:99px; background:rgba(255,253,248,.7); }
+    .owner-link-short { display:none; }
     .hero { padding:104px 0 70px; }
     .hero-grid { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr); gap:62px; align-items:center; }
     .eyebrow { color:var(--red-deep); font-size:12px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
@@ -50,11 +51,11 @@
     .route-card small { color:var(--muted); }
     .human-gate { position:relative; margin:18px 0 0 48px; padding:13px 15px; color:#fff; background:var(--red); border-radius:16px; font-size:13px; box-shadow:0 12px 28px rgba(223,91,79,.22); }
     .proof { padding:0 0 72px; }
-    .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-    .proof-item { padding:24px 26px; }
-    .proof-item + .proof-item { border-left:1px solid var(--line); }
-    .proof-item b { display:block; font-size:23px; letter-spacing:-.04em; }
-    .proof-item span { color:var(--muted); font-size:13px; }
+    .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .proof-item { position:relative; min-height:142px; padding:28px 26px 24px; overflow:hidden; border:1px solid var(--line); border-radius:22px; background:linear-gradient(145deg,rgba(255,253,248,.96),rgba(241,232,218,.72)); box-shadow:0 12px 32px rgba(72,54,34,.06); }
+    .proof-item::before { content:""; position:absolute; top:0; left:26px; width:46px; height:4px; border-radius:0 0 4px 4px; background:var(--red); }
+    .proof-item b { display:block; font-size:23px; line-height:1.25; letter-spacing:-.04em; }
+    .proof-item span { display:block; margin-top:12px; color:var(--muted); font-size:13px; line-height:1.7; }
     section { padding:86px 0; }
     .section-head { display:grid; grid-template-columns:.78fr 1.22fr; gap:40px; align-items:end; margin-bottom:34px; }
     h2 { margin:10px 0 0; font-size:clamp(34px,5vw,54px); line-height:1.12; letter-spacing:-.045em; }
@@ -65,12 +66,12 @@
     .problem strong { display:block; margin-bottom:10px; font-size:17px; }
     .problem p { margin:0; color:var(--muted); font-size:14px; }
     .tracks { grid-template-columns:repeat(4,1fr); }
-    .track { min-height:370px; display:flex; flex-direction:column; padding:24px; border:1px solid var(--line); border-radius:var(--radius); background:rgba(255,253,248,.78); box-shadow:0 12px 36px rgba(72,54,34,.06); }
+    .track { min-height:308px; display:flex; flex-direction:column; padding:24px; border:1px solid var(--line); border-radius:var(--radius); background:rgba(255,253,248,.78); box-shadow:0 12px 36px rgba(72,54,34,.06); }
     .track-no { display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:12px; }
     .track-symbol { width:42px; height:42px; display:grid; place-items:center; border-radius:14px; background:var(--paper-2); font-size:19px; }
-    .track h3 { margin:30px 0 12px; font-size:21px; line-height:1.32; letter-spacing:-.03em; }
+    .track h3 { margin:22px 0 0; font-size:21px; line-height:1.32; letter-spacing:-.03em; }
     .track p { color:var(--muted); font-size:14px; }
-    .track ul { margin:auto 0 0; padding:0; list-style:none; display:grid; gap:9px; }
+    .track ul { margin:22px 0 0; padding:0; list-style:none; display:grid; gap:9px; }
     .track li { padding-top:9px; border-top:1px solid var(--line); font-size:13px; }
     .method { background:#272621; color:#f9f5ed; }
     .method .eyebrow { color:#f3a59d; }
@@ -118,19 +119,21 @@
     footer { padding:34px 0 46px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
     .footer-row { display:flex; justify-content:space-between; gap:24px; align-items:center; }
     .footer-row a { text-decoration:none; }
-    @media (max-width:980px) { .hero-grid,.section-head,.note,.boundary-box { grid-template-columns:1fr; } .tracks,.role-grid { grid-template-columns:1fr 1fr; } .problem-grid { grid-template-columns:1fr; } .collab-title { max-width:100%; } .collab-title-line { white-space:normal; } .collab-flow { grid-template-columns:repeat(4,1fr); } .case-grid { grid-template-columns:1fr; } .boundary-actions { justify-content:flex-start; } .hero-board { max-width:640px; } .proof-grid { grid-template-columns:1fr; } .proof-item + .proof-item { border-left:0; border-top:1px solid var(--line); } }
-    @media (max-width:700px) { .nav-links a:not(.owner-link) { display:none; } .hero { padding-top:70px; } .method-flow { grid-template-columns:1fr 1fr; } .method-step:last-child { grid-column:1/-1; } .collab-flow { grid-template-columns:1fr 1fr; } }
-    @media (max-width:560px) { .wrap { width:min(100% - 28px,1160px); } .nav { min-height:64px; } .brand { font-size:14px; } .brand-mark { width:34px; height:34px; } .owner-link { font-size:12px; padding:7px 10px; } h1 { font-size:44px; } .hero-title { font-size:42px; } .hero-copy { font-size:16px; } .hero-board { padding:19px; border-radius:24px; } .route-card:nth-child(2),.route-card:nth-child(3),.human-gate { margin-left:0; } section,.about { padding:66px 0; } .tracks,.role-grid { grid-template-columns:1fr; } .track { min-height:0; } .method-flow,.collab-flow { grid-template-columns:1fr; } .method-step:last-child { grid-column:auto; } .boundary-box { padding:28px; } .footer-row { display:block; } .footer-row span { display:block; margin-top:8px; } }
+    @media (max-width:980px) { .hero-grid,.section-head,.note,.boundary-box { grid-template-columns:1fr; } .section-head { gap:20px; } .tracks { grid-template-columns:1fr 1fr; } .problem-grid { grid-template-columns:1fr; } .method-flow { grid-template-columns:1fr 1fr; } .method-step:last-child { grid-column:1/-1; } .collab-title { max-width:100%; } .collab-title-line { white-space:normal; } .collab-flow { grid-template-columns:repeat(4,1fr); } .case-grid { grid-template-columns:1fr; } .boundary-actions { justify-content:flex-start; } .hero-board { max-width:640px; } }
+    @media (max-width:700px) { .nav-links a:not(.owner-link) { display:none; } .hero { padding-top:70px; } .proof-grid,.role-grid { grid-template-columns:1fr; } .method-flow,.collab-flow { grid-template-columns:1fr 1fr; } .collab-flow .flow-step:last-child { grid-column:1/-1; } .flow-step { min-height:108px; padding:14px; } .flow-step span { margin-bottom:10px; } }
+    @media (max-width:560px) { .wrap { width:min(100% - 28px,1160px); } .nav { min-height:64px; } .brand { font-size:14px; } .brand-mark { width:34px; height:34px; } .owner-link { font-size:12px; padding:7px 10px; } h1 { font-size:44px; } .hero-title { font-size:clamp(36px,10.5vw,42px); } .hero-copy { font-size:16px; } .hero-board { padding:19px; border-radius:24px; } .route-card:nth-child(2),.route-card:nth-child(3),.human-gate { margin-left:0; } section,.about { padding:54px 0; } .proof { padding-bottom:54px; } .proof-item { min-height:0; padding:24px 22px 20px; } .proof-item::before { left:22px; } .tracks,.role-grid { grid-template-columns:1fr; } .track { min-height:0; } .track li { font-size:14px; } .method-step p { font-size:13px; } .collab-flow { gap:10px; } .flow-step { min-height:94px; padding:13px 14px; border-radius:16px; } .flow-step span { margin-bottom:7px; font-size:10px; } .flow-step b { font-size:13px; line-height:1.4; } .collab-flow .flow-step:last-child { min-height:78px; } .portrait { min-height:220px; } .boundary-box { padding:28px; } .footer-row { display:block; } .footer-row span { display:block; margin-top:8px; } }
+    @media (max-width:420px) { .brand-name,.owner-link-full { display:none; } .owner-link-short { display:inline; } .actions .btn { width:100%; } .board-label { align-items:flex-start; gap:10px; } .live { white-space:nowrap; } }
+    @media (max-width:360px) { .method-flow,.collab-flow { grid-template-columns:1fr; } .method-step:last-child,.collab-flow .flow-step:last-child { grid-column:auto; } }
     @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*:before,*:after { transition:none!important; } }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="返回首页"><span class="brand-mark">CC</span><span>CC 的 AI 管理室</span></a>
+      <a class="brand" href="#top" aria-label="返回首页"><span class="brand-mark">CC</span><span class="brand-name">CC 的 AI 管理室</span></a>
       <nav class="nav-links" aria-label="主导航">
         <a href="#practice">实践方向</a><a href="#collaboration">协作方式</a><a href="#works">公开内容</a><a href="#about">关于我</a>
-        <a class="owner-link" href="https://ops.ccairoom.cn/" rel="nofollow">私有运营中枢</a>
+        <a class="owner-link" href="https://ops.ccairoom.cn/" rel="nofollow"><span class="owner-link-full">私有运营中枢</span><span class="owner-link-short">运营中枢</span></a>
       </nav>
     </div>
   </header>
@@ -163,10 +166,10 @@
     <section id="practice">
       <div class="wrap"><div class="section-head"><div><div class="eyebrow">Current Practice</div><h2>四个正在发生的<br>能力实践方向</h2></div><p class="section-intro">它们有不同的作品和内容形态，但共同练习的是同一件事：在真实约束下组织工具、流程、质量检查与人的最终判断。</p></div>
         <div class="tracks">
-          <article class="track"><div class="track-no"><span>01 / AI TEAM</span><span class="track-symbol">🦞</span></div><h3>AI 团队与“养虾”实践</h3><p>探索单个 Agent 的连续推进，以及何时需要拆成清晰协作的多个角色。</p><ul><li>目标、职责与工作区</li><li>连续上下文与必要交接</li><li>记录、复盘与人工改流程</li></ul></article>
-          <article class="track"><div class="track-no"><span>02 / CODEX &amp; CONTENT</span><span class="track-symbol">⌘</span></div><h3>Codex 与内容/视频制作</h3><p>把 AI 用在研究、组织、制作与校验；视频制作会按内容选择脱敏演示、图形化表达或必要的真实界面证据，公开前先保护隐私并核对事实。</p><ul><li>内容与制作流程拆解</li><li>真实操作与表达分层</li><li>普通人能读懂的说明</li></ul></article>
-          <article class="track"><div class="track-no"><span>03 / NOVEL</span><span class="track-symbol">✎</span></div><h3>长篇小说生产与连载</h3><p>小说作品在番茄小说持续连载。公开站只呈现非敏感进展与方法特色，不公开正文、设定或内部资料。</p><ul><li>长篇创作的持续推进</li><li>批次检查与质量闸门</li><li>人工放行，不自动发布</li></ul></article>
-          <article class="track"><div class="track-no"><span>04 / METHOD</span><span class="track-symbol">◇</span></div><h3>方法整理与知识沉淀</h3><p>将经过边界确认与脱敏的做法，整理为可复用的工作说明与知识记录。</p><ul><li>先确认资料与适用边界</li><li>再抽象为可复用方法</li><li>持续记录问题与改进</li></ul></article>
+          <article class="track"><div class="track-no"><span>01 / AI TEAM</span><span class="track-symbol">🦞</span></div><h3>AI 团队与“养虾”实践</h3><ul><li>目标、职责与工作区</li><li>连续上下文与必要交接</li><li>记录、复盘与人工改流程</li></ul></article>
+          <article class="track"><div class="track-no"><span>02 / CODEX &amp; CONTENT</span><span class="track-symbol">⌘</span></div><h3>Codex 与内容/视频制作</h3><ul><li>内容与制作流程拆解</li><li>真实操作与表达分层</li><li>普通人能读懂的说明</li></ul></article>
+          <article class="track"><div class="track-no"><span>03 / NOVEL</span><span class="track-symbol">✎</span></div><h3>长内容的创作到发布</h3><ul><li>长篇创作的持续推进</li><li>批次检查与质量闸门</li><li>人工放行，不自动发布</li></ul></article>
+          <article class="track"><div class="track-no"><span>04 / METHOD</span><span class="track-symbol">◇</span></div><h3>方法整理与知识沉淀</h3><ul><li>先确认资料与适用边界</li><li>再抽象为可复用方法</li><li>持续记录问题与改进</li></ul></article>
         </div>
       </div>
     </section>
