@@ -152,11 +152,17 @@
     .video-side { position:absolute; right:8px; top:28px; width:28%; bottom:38px; background:repeating-linear-gradient(to bottom,#ebedee 0 8px,transparent 8px 17px); }
     .timeline { position:absolute; left:10px; right:10px; bottom:8px; height:22px; background:repeating-linear-gradient(to right,#4e5c75 0 38px,#8fa1c7 38px 62px); }
 
-    .target-ring { position:absolute; right:42px; top:42px; width:112px; height:112px; border:12px solid #4b5560; border-radius:50%; box-shadow:inset 0 0 0 12px #f1efe8,inset 0 0 0 23px #4b5560; }
-    .target-ring::after { content:""; position:absolute; width:62px; height:6px; top:47px; left:42px; border-radius:6px; background:var(--lime); transform:rotate(-42deg); transform-origin:left center; }
-    .check-sheet { position:absolute; left:32px; top:34px; width:112px; height:142px; padding:24px 14px 12px; border:1px solid #bcc0ba; border-radius:8px; background:#fffef9; box-shadow:0 10px 24px rgba(35,42,38,.10); }
-    .check-sheet::before { content:""; position:absolute; width:46px; height:10px; left:32px; top:-5px; border-radius:5px; background:#5d6670; }
-    .check-sheet i { display:block; height:8px; margin:12px 0; border-left:9px solid var(--lime); background:#e1e4df; }
+    .decision-visual { position:absolute; inset:24px 28px; display:grid; grid-template-columns:minmax(0,.78fr) 32px minmax(0,1.22fr) 32px minmax(0,.78fr); align-items:center; gap:8px; }
+    .survey-stack,.todo-stack { display:grid; gap:7px; }
+    .flow-arrow { position:relative; width:100%; height:2px; background:#94a1b2; }
+    .flow-arrow::after { content:""; position:absolute; right:-1px; top:-4px; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:8px solid #94a1b2; }
+    .survey-stack span { padding:8px 7px; border:1px solid #cfd5df; border-radius:8px; color:#596575; background:rgba(255,254,249,.94); font-size:9px; font-weight:750; text-align:center; box-shadow:0 5px 12px rgba(43,54,70,.05); }
+    .survey-stack span:nth-child(2) { transform:translateX(5px); }
+    .hub-core { position:relative; min-height:112px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px 10px; border:2px solid var(--blue); border-radius:20px; color:var(--ink); background:linear-gradient(145deg,#fff 0%,#edf3ff 100%); box-shadow:0 12px 26px rgba(22,78,232,.12); text-align:center; }
+    .hub-core b { font-size:13px; letter-spacing:-.01em; }
+    .hub-core span { margin-top:7px; color:#61708a; font-size:8px; line-height:1.45; }
+    .hub-core em { display:inline-flex; margin-top:12px; padding:5px 8px; border-radius:999px; color:#587018; background:var(--lime-soft); font-size:9px; font-style:normal; font-weight:800; }
+    .todo-stack span { padding:7px 6px; border:1px solid #ccd7ae; border-radius:999px; color:#5b701d; background:rgba(247,251,232,.96); font-size:9px; font-weight:800; text-align:center; }
 
     .design-process { position:absolute; inset:22px; display:grid; grid-template-columns:repeat(5,1fr); align-items:center; gap:9px; }
     .design-step { position:relative; min-height:118px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:12px 7px; border:1px solid #cfd5df; border-radius:14px; background:rgba(255,254,249,.94); box-shadow:0 9px 22px rgba(43,54,70,.08); text-align:center; }
@@ -244,6 +250,9 @@
       .capabilities { padding-top:24px; }
       .capability-grid { grid-template-columns:1fr; }
       .capability { min-height:0; }
+      .decision-visual { inset:20px 14px; grid-template-columns:minmax(0,.75fr) 18px minmax(0,1.15fr) 18px minmax(0,.75fr); gap:5px; }
+      .hub-core { min-height:108px; padding:14px 7px; }
+      .hub-core b { font-size:11px; }
       .skills-panel { padding:22px 14px; }
       .toolkit { min-height:0; padding:24px; }
       .toolkit h3 { font-size:23px; }
@@ -288,7 +297,7 @@
         <div>
           <div class="eyebrow">AI Practice Studio</div>
           <h1>把 AI 组织成能交付、能检查、能复盘的真实工作。</h1>
-          <p class="hero-copy">AI 项目带队、内容与视频生产、长篇内容质量控制，以及可复用的工作方法。这里展示我使用 AI 持续研究的方向，以及已经落到真实任务中的实践。</p>
+          <p class="hero-copy">AI 项目带队、项目知识中枢与动态决策、内容与视频生产、长篇内容质量控制。这里展示我使用 AI 持续研究的方向，以及已经落到真实任务中的实践。</p>
           <div class="actions">
             <a class="btn btn-primary" href="#cases">看真实案例</a>
             <a class="btn btn-secondary" href="#skills">看我的 Skills</a>
@@ -337,10 +346,10 @@
             <ul><li>主题、结构与上下文</li><li>事实、逻辑与连续性</li><li>继续、返修或暂停</li></ul>
           </article>
           <article class="capability">
-            <div class="cap-icon" aria-hidden="true">库</div>
-            <h3>AI 工作台与知识沉淀</h3>
-            <p>把一次任务的资料和判断整理成下一次可复用的起点。</p>
-            <ul><li>来源、版本与适用边界</li><li>任务结果与复盘记录</li><li>可检索的知识资产</li></ul>
+            <div class="cap-icon" aria-hidden="true">枢</div>
+            <h3>AI 项目知识中枢与动态决策</h3>
+            <p>把新增调研与持续维护的项目状态对照，直接形成分类行动。</p>
+            <ul><li>跨项目事实检索</li><li>已完成、进行中与已规划核对</li><li>动态报告与 Todo 分流</li></ul>
           </article>
         </div>
       </div>
@@ -375,12 +384,18 @@
             </div>
           </article>
           <article class="case">
-            <div class="case-visual" aria-hidden="true"><div class="check-sheet"><i></i><i></i><i></i><i></i></div><div class="target-ring"></div></div>
+            <div class="case-visual" aria-hidden="true">
+              <div class="decision-visual">
+                <div class="survey-stack"><span>调研反馈</span><span>用户意见</span><span>使用问题</span></div><i class="flow-arrow"></i>
+                <div class="hub-core"><b>项目知识中枢</b><span>已完成 · 进行中 · 已规划 · 产品边界</span><em>生成动态报告</em></div>
+                <i class="flow-arrow"></i><div class="todo-stack"><span>培训</span><span>跟踪</span><span>规划</span><span>核验</span></div>
+              </div>
+            </div>
             <div class="case-body">
-              <div class="case-kicker"><span>项目管理</span><span>验收定义</span></div>
-              <h3>让 AI 在开工前先说清目标与验收</h3>
-              <p>把目标、范围、禁止事项和成功标准前置，减少做完以后才发现方向不对。</p>
-              <div class="case-proof"><span class="tag blue">目标定义</span><span class="tag">结果核验</span></div>
+              <div class="case-kicker"><span>项目知识中枢</span><span>调研 → 行动</span></div>
+              <h3>把调研接入项目知识中枢，直接生成行动</h3>
+              <p>将调研反馈与项目现状、进度和规划对照，识别已有能力、推进事项与真实缺口，生成动态报告和分类行动。AI 负责检索匹配，人负责判断决策。</p>
+              <div class="case-proof"><span class="tag blue">跨项目核对</span><span class="tag">行动分流</span><span class="tag blue">动态报告</span></div>
             </div>
           </article>
           <article class="case">
