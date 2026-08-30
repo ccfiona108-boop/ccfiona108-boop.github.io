@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI 个人图书馆：把书籍、网页、地图、笔记与访谈整理成可追溯、可双向链接、可被研究和创作调用的知识。">
+  <meta name="theme-color" content="#f8f5ef">
+  <title>AI 个人图书馆｜CCAIroom</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body class="detail-page method-detail-page library-detail-page">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="../index.html" aria-label="返回 CCAIroom 首页"><span class="brand-main">CCAI</span><span class="brand-sub">room</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav"><span class="sr-only">打开导航</span><span></span><span></span></button>
+    <nav class="primary-nav" id="primary-nav" aria-label="主导航"><a href="../index.html#methods">方法</a><a class="is-current" href="ai-library.html">图书馆</a><a href="ai-visual-lab.html">实验</a><a href="../index.html#about">关于</a></nav>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero method-detail-hero section-shell" aria-labelledby="detail-title">
+      <div class="detail-hero-copy">
+        <p class="breadcrumb"><a href="../index.html#methods">方法</a><span>·</span> AI 个人图书馆</p>
+        <h1 id="detail-title">AI 个人图书馆</h1>
+        <p class="detail-subtitle">知识不是堆在一起，而是彼此能够找到。</p>
+        <p class="detail-intro">书籍、网页、地图、笔记和访谈先保留来源，再被整理成分工清楚的卡片；卡片通过双向链接进入关系图谱，最后回到研究、创作和产品判断中。</p>
+      </div>
+      <figure class="method-hero-figure">
+        <img src="../assets/ai-knowledge-library-concept-v1.png" width="864" height="542" alt="多种来源经过核对和卡片分工，形成带双向链接的知识关系图谱，并被研究和创作调用">
+        <figcaption><span>来源</span><span>卡片</span><span>关系图谱</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="workflow-section section-shell" aria-labelledby="workflow-title">
+      <div class="section-heading centered"><h2 id="workflow-title">从内容进入，到知识再次被调用</h2><p>入库不是终点。只有能追溯出处、看见关系并回到真实项目，资料才会变成知识资产。</p></div>
+      <div class="workflow-board">
+        <section class="workflow-phase" aria-labelledby="library-phase-one">
+          <header><span>先保留来源与判断</span><h3 id="library-phase-one">内容入库</h3></header>
+          <ol class="workflow-row workflow-row-four">
+            <li class="workflow-node"><span>收集</span><h4>多种来源</h4><p>书籍、网页、地图、笔记、访谈与已有档案。</p><small>保留：原始位置</small></li>
+            <li class="workflow-node workflow-node-focus"><span>核对</span><h4>出处与可信度</h4><p>区分原文、转述、推断以及暂时无法确认的内容。</p><small>得到：来源记录</small></li>
+            <li class="workflow-node"><span>整理</span><h4>进入工作台</h4><p>切分主题，去除重复，记录为什么值得保存。</p><small>得到：入库单元</small></li>
+            <li class="workflow-node"><span>分工</span><h4>三类卡片</h4><p>来源卡管出处，知识卡管结论，项目卡管使用。</p><small>得到：卡片系统</small></li>
+          </ol>
+        </section>
+        <div class="workflow-handoff"><span>卡片建立后，进入关系网络</span></div>
+        <section class="workflow-phase" aria-labelledby="library-phase-two">
+          <header><span>再让知识彼此相连</span><h3 id="library-phase-two">关系与调用</h3></header>
+          <ol class="workflow-row workflow-row-three">
+            <li class="workflow-node"><span>链接</span><h4>双向链接</h4><p>从人物、地点、母题、时代和项目连接相关卡片。</p><small>得到：前后关系</small></li>
+            <li class="workflow-node workflow-node-focus"><span>看见</span><h4>关系图谱</h4><p>在 Obsidian 中发现主题簇、空白点和意外连接。</p><small>得到：研究路径</small></li>
+            <li class="workflow-node"><span>调用</span><h4>研究与创作</h4><p>把来源、知识与已有判断带回文章、故事和产品。</p><small>写回：新证据与经验</small></li>
+          </ol>
+        </section>
+      </div>
+    </section>
+
+    <section class="card-system-section section-shell" aria-labelledby="cards-title">
+      <div class="section-heading centered"><h2 id="cards-title">三类卡片，各自只管一件事</h2></div>
+      <div class="card-system-grid">
+        <article><span>来源卡</span><h3>它从哪里来</h3><p>保留书目、链接、页码、原文位置和获取时间。</p></article>
+        <article><span>知识卡</span><h3>我们知道什么</h3><p>记录可复用的事实、概念、关系与判断边界。</p></article>
+        <article><span>项目卡</span><h3>它怎样被使用</h3><p>连接正在进行的研究、故事、产品和待解决问题。</p></article>
+      </div>
+    </section>
+
+    <section class="layers-section section-shell" aria-labelledby="layers-title">
+      <div class="section-heading compact"><h2 id="layers-title">事实与创作，必须分层保存</h2><p>知识库不会把出处、研究判断和创作想象混成同一种“答案”。</p></div>
+      <ol class="knowledge-layers"><li><span>01</span><strong>原始来源</strong><small>它真实写了什么</small></li><li><span>02</span><strong>研究判断</strong><small>证据支持到哪里</small></li><li><span>03</span><strong>创作转化</strong><small>作品如何重新解释</small></li><li><span>04</span><strong>待核问题</strong><small>哪里仍不能确定</small></li></ol>
+    </section>
+
+    <section class="shelves-section section-shell" aria-labelledby="shelves-title">
+      <div class="section-heading centered"><h2 id="shelves-title">图书馆正在生长的四个书架</h2></div>
+      <div class="output-grid"><article><strong>中国神话</strong><p>神祇、母题与叙事关系</p></article><article><strong>历史地理</strong><p>地点、制度与事件因果</p></article><article><strong>古典志怪</strong><p>原典、异文与故事转化</p></article><article><strong>古代形制</strong><p>服饰、器物与视觉依据</p></article></div>
+    </section>
+
+    <section class="detail-cta section-shell"><div><h2>继续看看，二维素材怎样进入三维世界</h2></div><a class="primary-button" href="ai-visual-lab.html">进入 AI 影像实验室 <img class="button-arrow" src="../assets/icons/action-arrow-tight-v1.png" width="400" height="260" alt="" aria-hidden="true"></a></section>
+  </main>
+  <footer class="site-footer section-shell"><div><strong>CCAIroom</strong><span>用 AI，把想法变成可能。</span></div><p>个人 AI 方法室</p></footer>
+  <script src="../assets/site.js"></script>
+</body>
+</html>
